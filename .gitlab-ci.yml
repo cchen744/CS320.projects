@@ -1,0 +1,112 @@
+mp1:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp1
+    - if cmp --silent tester.py /comp_files/mp1_comp_file; then echo "tester.py matches. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/hardcoding.py /comp_files/hardcoding_comp_file; then echo "hardcoding.py matches. Success!"; else echo "hardcoding.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/image_tester.py /comp_files/image_tester_comp_file; then echo "image_tester.py matches. Success!"; else echo "image_tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP1 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP1
+
+mp2:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp2
+    - if cmp --silent tester.py /comp_files/mp2_comp_file; then echo "tester.py matches. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/hardcoding.py /comp_files/hardcoding_comp_file; then echo "hardcoding.py matches. Success!"; else echo "hardcoding.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/image_tester.py /comp_files/image_tester_comp_file; then echo "image_tester.py matches. Success!"; else echo "image_tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP2 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP2
+
+mp3:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp3
+    - if cmp --silent tester.py /comp_files/mp3_comp_file; then echo "tester.py matches. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/hardcoding.py /comp_files/hardcoding_comp_file; then echo "hardcoding.py matches. Success!"; else echo "hardcoding.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/image_tester.py /comp_files/image_tester_comp_file; then echo "image_tester.py matches. Success!"; else echo "image_tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP3 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP3
+
+mp4:
+  script:
+    - echo "Installing MP4 dependencies..."
+    - echo "Installing Chrome requirements..."
+    - apt-get update -y
+    - apt-get install -y wget libasound2 libgbm1 libnspr4 libnss3 libu2f-udev libvulkan1 && rm -rf /var/lib/apt/lists/*
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt install ./google-chrome-stable_current_amd64.deb
+    - echo "Installing Selenium requirements..."
+    - pip install webdriver-manager
+    - echo "Comparing tester files..."
+    - cd projects/mp4
+    - if cmp --silent tester.py /comp_files/mp4_comp_file; then echo "Files match. Success!"; else echo "tester.py has been edited. Please use the tester file provided and do not edit the tester.py file yourself."; exit 1; fi
+    - echo "Running MP4 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP4
+
+mp5:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp5
+    - if cmp --silent tester.py /comp_files/mp5_comp_file; then echo "Files match. Success!"; else echo "tester.py has been edited. Please use the tester file provided and do not edit the tester.py file yourself."; exit 1; fi
+    - echo "Running MP5 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP5
+    
+mp6:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp6
+    - if cmp --silent tester.py /comp_files/mp6_comp_file; then echo "tester.py matches. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/hardcoding.py /comp_files/hardcoding_comp_file; then echo "hardcoding.py matches. Success!"; else echo "hardcoding.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/image_tester.py /comp_files/image_tester_comp_file; then echo "image_tester.py matches. Success!"; else echo "image_tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP6 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP6
+
+mp7:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp7
+    - if cmp --silent tester.py /comp_files/mp7_comp_file; then echo "tester.py matches. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/hardcoding.py /comp_files/hardcoding_comp_file; then echo "hardcoding.py matches. Success!"; else echo "hardcoding.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - if cmp --silent .utils/image_tester.py /comp_files/image_tester_comp_file; then echo "image_tester.py matches. Success!"; else echo "image_tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP7 autograder..."
+    - python3 tester.py
+    - echo "Test completed."
+  only:
+    - MP7
+
+mp8:
+  script:
+    - echo "Comparing tester files..."
+    - cd projects/mp8
+    - if cmp --silent tester.py /comp_files/mp8_comp_file; then echo "Files match. Success!"; else echo "tester.py has been edited. Please use the files provided and do not edit the files yourself."; exit 1; fi
+    - echo "Running MP8 autograder..."
+    - python3 tester.py test2
+    - echo "Test completed."
+  only:
+    - MP8
+
+default:
+  image:
+    name: registry.doit.wisc.edu/cdis/cs/courses/cs320/docker/m6
+    pull_policy: if-not-present
+  tags:
+    - python
