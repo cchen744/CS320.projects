@@ -75,7 +75,9 @@ Click "Add SSH Key" to finish adding it.
 ## Step 2: Create a Repo
 
 Create a project repo called
-"cs320-lab2". For the group, pick your NETID.
+"cs320-lab2". 
+
+**Note:** The group field in the Project URL corresponds to your NETID.
 
 <img src="2.png" width=800>
 
