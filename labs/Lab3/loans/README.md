@@ -330,11 +330,9 @@ for amt in loan.yearly_amounts(80000):
 And get this:
 
 ```
-325000.0
-253125.0
-179453.125
-103939.453125
-26537.939453125
+225000.0
+151750.0
+76302.5
 ```
 
 3. Make the method a generator.  Get rid of the `result` list, and instead of appending to it, yield `amt`.  Make sure the loop works the same way as before in your notebook.  One advantage of the generator is that the method will work even if the payment is too small (the generator will keep yielding larger amounts as the debt keeps growing). 

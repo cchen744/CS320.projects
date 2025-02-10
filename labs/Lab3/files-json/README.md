@@ -12,7 +12,7 @@ f.close() # you need the parentheses, even without arguments!
 ```
 
 The code fails because the file wasn't opened in write mode.  Add "w"
-as a second positional arguments to `open`, then try again.
+as a second positional argument to `open`, then try again.
 
 Does the above code actually produce two lines?  Open `file.txt`
 through Jupyter and check.  Try modifying the "line1" and "line2"
