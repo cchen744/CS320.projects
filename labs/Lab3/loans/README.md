@@ -258,7 +258,7 @@ Start with the following, then modify and add code:
 ```python
 class Loan:
     def __init__(????, values):
-        self.loan_amount = float_extract(values["loan_amount"]) # write the float_extract method as specified below
+        self.loan_amount = self.float_extract(values["loan_amount"]) # write the float_extract method as specified below
         # add lines here
 
     def float_extract(self, string):
