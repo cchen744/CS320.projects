@@ -277,8 +277,8 @@ Requirements:
 
 
 Manually test your `Loan` class from your notebook with a few snippets:
-* `loan.interest_rate` should be `2.5`
-* `loan.applicants` should be `[Applicant('35-44', ['White']), Applicant('35-44', ['White'])]`
+* `loan.interest_rate` should be `3.0`
+* `loan.applicants` should be `[Applicant('55-64', ['White'])]`
 * choose a couple more...
 
 ### `__str__` and `__repr__`
@@ -286,7 +286,7 @@ Manually test your `Loan` class from your notebook with a few snippets:
 Add a `__str__` method to your `Loan` class so that `print(loan)` gives the following:
 
 ```
-<Loan: 2.5% on $445000.0 with 2 applicant(s)>
+<Loan: 3.0% on $225000.0 with 1 applicant(s)>
 ```
 
 Add a `__repr__` that returns the same string as `__str__`.
