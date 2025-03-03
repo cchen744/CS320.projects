@@ -61,7 +61,7 @@ class Loan:
         #self.tract_minority_population_percent = float_extract(values["tract_minority_population_percent"])
         self.property_value = self.float_extract(values["property_value"])
         if values["co-applicant_age"] != "9999":
-            self.applicants = [Applicant(values['applicant_age'], [values['applicant_race-1'],values['applicant_race-1'],values['applicant_race-1'],values['applicant_race-1'],values['applicant_race-1']]),
+            self.applicants = [Applicant(values['applicant_age'], [values['applicant_race-1'],values['applicant_race-2'],values['applicant_race-3'],values['applicant_race-4'],values['applicant_race-5']]),
                                Applicant(values['co-applicant_age'], [values['co-applicant_race-1'],values['co-applicant_race-2'],values['co-applicant_race-3'],values['co-applicant_race-4'],values['co-applicant_race-5']])]
         else:
             self.applicants = [Applicant(values['applicant_age'], [values['applicant_race-1'],values['applicant_race-2'],values['applicant_race-3'],values['applicant_race-4'],values['applicant_race-5']])]
@@ -74,10 +74,10 @@ class Loan:
         
     
     def __str__(self):
-        return f"<Loan: {self.interest_rate}% on ${self.property_value} with {len(self.applicants)} applicant(s)>"
+        return f"<Loan: {self.interest_rate}% on ${self.loan_amount} with {len(self.applicants)} applicant(s)>"
     
     def __repr__(self):
-        return f"<Loan: {self.interest_rate}% on ${self.property_value} with {len(self.applicants)} applicant(s)>"
+        return f"<Loan: {self.interest_rate}% on ${self.loan_amount} with {len(self.applicants)} applicant(s)>"
     
     def yearly_amounts(self, yearly_payment):
     # TODO: assert interest and amount are positive
