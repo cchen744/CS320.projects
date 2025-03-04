@@ -10,7 +10,7 @@ that everything works correctly right now. For MP4, we will be launching
 our own website, and then navigating and scraping from it.
 
 
-### Launching the Website (from P3)
+### Launching the Website (from MP4)
 
 You'll be scraping a website implemented as a web application built
 using the Flask framework (you don't need to know flask for this
@@ -31,18 +31,28 @@ programmatically type in the password and navigate through the site
 later in MP4.
 
 ```python
+import os
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 
-options = Options()
-options.headless = True
-service = Service(executable_path="chromium.chromedriver")
-driver = webdriver.Chrome(options=options, service=service)
+driver = None
+
+def browser():
+    global driver
+
+    if not driver:
+        os.system("pkill -f -9 chromium")
+        options = Options()
+        options.add_argument("--headless=new")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+    return driver
+
+driver = browser()
 
 url = "http://YOUR-VM-IP:5000"
-webpage = driver.get(url)
+driver.get(url)
 
-driver.close()
-webpage
+driver.page_source
 ```
