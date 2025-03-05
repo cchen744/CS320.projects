@@ -80,19 +80,19 @@ class Loan:
         return f"<Loan: {self.interest_rate}% on ${self.loan_amount} with {len(self.applicants)} applicant(s)>"
     
     def yearly_amounts(self, yearly_payment):
-    # TODO: assert interest and amount are positive
-        amt = self.loan_amount
-        interest_rate = self.interest_rate/100
-        yearly_amounts = []
+        assert self.interest_rate > 0
+        assert self.loan_amount > 0
         
-        while amt > 0 and interest_rate>0: 
-        # TODO: yield amt
-            yearly_amounts.append(amt)
-        # TODO: add interest rate multiplied by amt to amt
-        # TODO: subtract yearly payment from amt
-            amt = amt*(1+interest_rate)- yearly_payment
-            
-        return yearly_amounts
+        result = []
+        amt = self.loan_amount
+    
+        while amt > 0:
+            yield amt
+            result.append(amt)
+            # TODO: add interest rate multiplied by amt to amt
+            amt += amt * (self.interest_rate / 100)
+            # TODO: subtract yearly payment from amt
+            amt -= yearly_payment
     
 with open('banks.json') as b:
             banks = json.load(b) #banks.json is converted to a list of dictionaries.
@@ -119,4 +119,10 @@ class Bank:
                 for loan in loans_reader:
                     if loan['lei'] == self.lei:
                         self.loan_list.append(Loan(loan))
+                        
+    def __len__(self):
+        return len(self.loan_list)
+    
+    def __getitem__(self,index):
+        return self.loan_list[index]
                         

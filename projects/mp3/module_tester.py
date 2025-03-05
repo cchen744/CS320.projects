@@ -45,6 +45,9 @@ def loans_test():
     loans_points += 1
 
     # repr
+    applicant = loans.Applicant("80-90", ["1"])
+    assert repr(applicant) == "Applicant('80-90', ['American Indian or Alaska Native'])"
+    loans_points += 4
     applicant = loans.Applicant("80-90", [])
     assert repr(applicant) == "Applicant('80-90', [])"
     applicant = loans.Applicant("90+", ["25"])
