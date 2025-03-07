@@ -262,7 +262,7 @@ class Loan:
         # add lines here
 
     def float_extract(self, string):
-	if string == "NA" or string == "Exempt":
+        if string == "NA" or string == "Exempt":
             return  ????
         else:
             return ????

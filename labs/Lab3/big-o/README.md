@@ -163,6 +163,7 @@ ax.set_xlim(0, 75)
 
 It turns out `2*N + (N/15)**4` is NOT in `O(N)` after all.  What
 Big O order of growth does `2*N + (N/15)**4` have?
+O(N**4)
 
 ## Exercise 5: show `log2(N)` is in `O(log10(N))`
 
@@ -214,5 +215,5 @@ ax = scale_ax()
 ax.set_xlim(1, 100)
 plot_func(ax, "sum(range(int(N)))")
 
-upper_bound(ax, order=????)
+upper_bound(ax, order='N**2')
 ```
