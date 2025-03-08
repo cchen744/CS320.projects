@@ -2,8 +2,7 @@ import json
 from zipfile import ZipFile
 import csv
 import io
-import time
-#import graphviz
+
 
 class Applicant:
     def __init__(self, age, race):
