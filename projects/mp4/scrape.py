@@ -1,4 +1,8 @@
 from collections import deque
+<<<<<<< HEAD
+=======
+import pandas as pd
+>>>>>>> main
 
 class GraphSearcher:
     def __init__(self):
@@ -86,4 +90,45 @@ class FileSearcher(GraphSearcher):
 class WebSearcher(GraphSearcher):
     def __init__(self,some_driver):
         super().__init__() # call constructor method of parent class
+<<<<<<< HEAD
         
+=======
+        self.driver = some_driver
+        self.DataFrames = pd.DataFrame() # set up an empty dataframe to store all table in all webs
+        
+    def visit_and_get_children(self, url):
+        # TODO: Record the node value in self.order
+        self.driver.get(url) # Direct the driver to the targeted url
+        self.order.append(url)
+        
+        # Using pandas.read_html() to find all table elements in this webpage
+        # table = pd.read_html(url)
+        
+        children = []
+        for link in self.driver.find_elements('tag name','a'):
+        # TODO: use `self.df` to determine what children the node has and append them
+            if link.get_attribute('href') != None:
+                children.append(link.get_attribute('href'))
+        return children
+    
+    def table(self):
+        
+        tables = []
+        seen = set()  # Set to track seen URLs
+        unique_urls = []
+
+        # Iterate through self.order and preserve the sequence while removing duplicates
+        for url in self.order:
+            if url not in seen:
+                unique_urls.append(url)
+                seen.add(url)
+
+        for url in unique_urls:
+            table = pd.read_html(url)
+            tables.append(table[0])
+
+        # Concatenate all tables and return the result
+        return pd.concat(tables, ignore_index=True)
+    
+def reveal_secrets(driver, url, travellog):
+>>>>>>> main
