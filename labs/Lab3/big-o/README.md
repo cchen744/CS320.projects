@@ -141,7 +141,7 @@ plot_func(ax, "N**2 + 5*N + 25")
 upper_bound(ax, order="N**2")
 ```
 
-## Exercise 4: *try* to show `2*N + (N/15)**4` is in `O(N)`
+## Exercise 4: *try* to show `2*N + (N/15)**4` is in `O(N)` _(conditional)_
 
 Start with this:
 

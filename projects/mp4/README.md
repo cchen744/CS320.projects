@@ -314,8 +314,6 @@ s = scrape.WebSearcher(driver)
 s.bfs_search(start_url)
 
 print(s.table())
-
-driver.close()
 ```
 
 Expected output:

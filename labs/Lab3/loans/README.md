@@ -258,7 +258,7 @@ Start with the following, then modify and add code:
 ```python
 class Loan:
     def __init__(????, values):
-        self.loan_amount = float_extract(values["loan_amount"]) # write the float_extract method as specified below
+        self.loan_amount = self.float_extract(values["loan_amount"]) # write the float_extract method as specified below
         # add lines here
 
     def float_extract(self, string):
@@ -277,8 +277,8 @@ Requirements:
 
 
 Manually test your `Loan` class from your notebook with a few snippets:
-* `loan.interest_rate` should be `2.5`
-* `loan.applicants` should be `[Applicant('35-44', ['White']), Applicant('35-44', ['White'])]`
+* `loan.interest_rate` should be `3.0`
+* `loan.applicants` should be `[Applicant('55-64', ['White'])]`
 * choose a couple more...
 
 ### `__str__` and `__repr__`
@@ -286,7 +286,7 @@ Manually test your `Loan` class from your notebook with a few snippets:
 Add a `__str__` method to your `Loan` class so that `print(loan)` gives the following:
 
 ```
-<Loan: 2.5% on $445000.0 with 2 applicant(s)>
+<Loan: 3.0% on $225000.0 with 1 applicant(s)>
 ```
 
 Add a `__repr__` that returns the same string as `__str__`.
@@ -330,11 +330,9 @@ for amt in loan.yearly_amounts(80000):
 And get this:
 
 ```
-325000.0
-253125.0
-179453.125
-103939.453125
-26537.939453125
+225000.0
+151750.0
+76302.5
 ```
 
 3. Make the method a generator.  Get rid of the `result` list, and instead of appending to it, yield `amt`.  Make sure the loop works the same way as before in your notebook.  One advantage of the generator is that the method will work even if the payment is too small (the generator will keep yielding larger amounts as the debt keeps growing). 
