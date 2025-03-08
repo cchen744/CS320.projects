@@ -48,7 +48,6 @@ class GraphSearcher:
                 if child not in self.visited:
                     to_visit.append(child)
                     self.visited.add(child)        
-        return 
         
 
 class MatrixSearcher(GraphSearcher):
@@ -68,4 +67,23 @@ class MatrixSearcher(GraphSearcher):
     
     
 class FileSearcher(GraphSearcher):
-    return
+    def __init__(self):
+        super().__init__() # call constructor method of parent class
+    
+    def visit_and_get_children(self,filename):
+        with open(f"file_nodes/{filename}",'r') as file:
+            lines=file.readlines()
+        self.order.append(lines[0].strip()) # Record the node value in self.order
+        children = [] # a list of children
+        for line in lines[1:-1]:
+            children.append(line.strip())
+        return children
+    
+    def concat_order(self):
+        c=''.join(self.order)
+        return(c)
+    
+class WebSearcher(GraphSearcher):
+    def __init__(self,some_driver):
+        super().__init__() # call constructor method of parent class
+        
