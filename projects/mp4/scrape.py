@@ -1,8 +1,5 @@
 from collections import deque
-<<<<<<< HEAD
-=======
 import pandas as pd
->>>>>>> main
 
 class GraphSearcher:
     def __init__(self):
@@ -90,9 +87,7 @@ class FileSearcher(GraphSearcher):
 class WebSearcher(GraphSearcher):
     def __init__(self,some_driver):
         super().__init__() # call constructor method of parent class
-<<<<<<< HEAD
-        
-=======
+
         self.driver = some_driver
         self.DataFrames = pd.DataFrame() # set up an empty dataframe to store all table in all webs
         
@@ -131,4 +126,4 @@ class WebSearcher(GraphSearcher):
         return pd.concat(tables, ignore_index=True)
     
 def reveal_secrets(driver, url, travellog):
->>>>>>> main
+    
