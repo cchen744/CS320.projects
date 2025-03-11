@@ -60,3 +60,7 @@ Press CTRL+C to quit
 127.0.0.1 - - [09/Mar/2025 22:36:35] "POST /password HTTP/1.1" 200 -
 127.0.0.1 - - [09/Mar/2025 22:36:35] "GET /hidden_location.html HTTP/1.1" 200 -
 127.0.0.1 - - [09/Mar/2025 22:36:35] "GET /styles.css HTTP/1.1" 200 -
+ * Serving Flask app 'application'
+ * Debug mode: off
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.
