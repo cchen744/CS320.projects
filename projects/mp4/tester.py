@@ -22,7 +22,7 @@ search_alg = "bfs" # use either bfs or dfs. the other tests will change accordin
 expected_travellog = pd.read_csv(f"{search_alg}-travellog.csv")
 
 driver = None
-port = "5000"
+port = "5001"
 
 secret_location = "CAMP RANDALL STADIUM"
 secret_location_size = 130994
