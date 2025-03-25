@@ -34,10 +34,10 @@ def home():
     if global_counter <= 10:
         if global_counter % 2 == 0:
             version = "A"
-            html=html.replace("VERSION","A").replace("DONATE_LINK", "/donate?from=A").replace("LINK_COLOR",'red')
+            html=html.replace("VERSION","A").replace("/donate.html", "/donate?from=A").replace("LINK_COLOR",'red')
         else:
             version = "B"
-            html=html.replace("VERSION","B").replace("DONATE_LINK", "/donate?from=B").replace("LINK_COLOR",'blue')
+            html=html.replace("VERSION","B").replace("/donate.html", "/donate?from=B").replace("LINK_COLOR",'blue')
     
         global_counter += 1
     
@@ -48,15 +48,16 @@ def home():
         else:
             html = html.replace("VERSION", "B").replace("LINK_COLOR", "red")
     
-    html = html.replace("DONATE_LINK", f'donate?from={version}')        
+    html = html.replace("/donate.html", f'donate?from={version}')        
 
     return html
 
-@app.route('/browser')
+@app.route('/browse.html')
 def show(): 
-    return df.to_html(index=False)
+    html_output = df.to_html(index=False)
+    return f"<h1>Browse Data</h1>{html_output}"
 
-@app.route('/browser.json')
+@app.route('/browse.json')
 def tojson():
     global last_visit
     ip_addr = request.remote_addr
@@ -75,7 +76,7 @@ def tojson():
 def visitors():
     return list(set(ip_addrs))
 
-@app.route('/donate')
+@app.route('/donate.html')
 def donation(source = ''):
     
     global donation_clicks, global_counter,best_version
@@ -94,7 +95,7 @@ def donation(source = ''):
                 
         best_version = "A" if CTR_A > CTR_B else "B"
                 
-    return "Please fund me!"
+    return f"<h1>Please fund me!</h1>"
 
 @app.route('/email', methods=["POST"])
 def email():
@@ -158,6 +159,10 @@ def plot2(lwd = 1):
         file.write(f.getvalue())
     
     return Response(f.getvalue(), headers={"Content-type": "image/svg+xml"})
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return "Page not found", 404
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, threaded=False) # don't change this line!

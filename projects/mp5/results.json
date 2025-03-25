@@ -1,0 +1,99 @@
+{
+  "score": 40.0,
+  "tests": [
+    {
+      "test": "has_pages",
+      "points": 10,
+      "possible": 10
+    },
+    {
+      "test": "has_links",
+      "points": 0,
+      "possible": 6,
+      "log": [
+        "========================================",
+        "TEST has_links (6)",
+        "no hyperlink to browse.html found on home page",
+        "no hyperlink to donate.html found on home page",
+        ""
+      ]
+    },
+    {
+      "test": "browse",
+      "points": 20,
+      "possible": 20
+    },
+    {
+      "test": "rate",
+      "points": 0,
+      "possible": 5,
+      "log": [
+        "========================================",
+        "TEST rate (5)",
+        "Traceback (most recent call last):",
+        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 128, in run_all_tests",
+        "    points = t.fn()",
+        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 372, in rate",
+        "    assert status == \"200 OK\"",
+        "AssertionError",
+        "",
+        ""
+      ]
+    },
+    {
+      "test": "ab_test",
+      "points": 0,
+      "possible": 25,
+      "log": [
+        "========================================",
+        "TEST ab_test (25)",
+        "expected exactly one link to donate, but found []",
+        "expected exactly one link to donate, but found []",
+        "expected exactly one link to donate, but found []",
+        "expected exactly one link to donate, but found []",
+        "expected exactly one link to donate, but found []",
+        ""
+      ]
+    },
+    {
+      "test": "email",
+      "points": 4,
+      "possible": 14,
+      "log": [
+        "========================================",
+        "TEST email (14)",
+        "response 'thanks, your subscriber number is 2!' did not contain correct 'n' for valid email 'user@example.com'",
+        "response 'thanks, your subscriber number is 3!' did not contain correct 'n' for valid email 'user123@gmail.com'",
+        "response 'thanks, your subscriber number is 4!' contained 'thank' for invalid email 'user@gmail@gmail.com'",
+        "response 'thanks, your subscriber number is 5!' contained 'thank' for invalid email 'user@hotmail.cooooooooooom'",
+        "found emails {'user@example.com', 'user@hotmail.cooooooooooom', 'user@gmail@gmail.com', 'user123@gmail.com'} in emails.txt, but expected {'user@example.com', 'user123@gmail.com'}",
+        ""
+      ]
+    },
+    {
+      "test": "has_svgs",
+      "points": 6,
+      "possible": 6
+    },
+    {
+      "test": "dashboard_examples",
+      "points": 0,
+      "possible": 14,
+      "log": [
+        "========================================",
+        "TEST dashboard_examples (14)",
+        "Traceback (most recent call last):",
+        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 128, in run_all_tests",
+        "    points = t.fn()",
+        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 616, in dashboard_examples",
+        "    with open(\"dashboard1.svg\", \"rb\") as f:",
+        "FileNotFoundError: [Errno 2] No such file or directory: 'dashboard1.svg'",
+        "",
+        ""
+      ]
+    }
+  ],
+  "lint": [],
+  "date": "03/25/2025",
+  "latency": 1.1737842559814453
+}
