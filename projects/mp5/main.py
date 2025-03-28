@@ -34,10 +34,10 @@ def home():
     if global_counter <= 10:
         if global_counter % 2 == 0:
             version = "A"
-            html=html.replace("VERSION","A").replace("/donate.html", "/donate?from=A").replace("LINK_COLOR",'red')
+            html=html.replace("VERSION","A").replace("/donate.html", "/donate.html?from=A").replace("LINK_COLOR",'red')
         else:
             version = "B"
-            html=html.replace("VERSION","B").replace("/donate.html", "/donate?from=B").replace("LINK_COLOR",'blue')
+            html=html.replace("VERSION","B").replace("/donate.html", "/donate.html?from=B").replace("LINK_COLOR",'blue')
     
         global_counter += 1
     
@@ -48,7 +48,7 @@ def home():
         else:
             html = html.replace("VERSION", "B").replace("LINK_COLOR", "red")
     
-    html = html.replace("/donate.html", f'donate?from={version}')        
+    html = html.replace("/donate.html", f'donate.html?from={version}')        
 
     return html
 

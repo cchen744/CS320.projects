@@ -1,5 +1,5 @@
 {
-  "score": 40.0,
+  "score": 51.0,
   "tests": [
     {
       "test": "has_pages",
@@ -8,15 +8,8 @@
     },
     {
       "test": "has_links",
-      "points": 0,
-      "possible": 6,
-      "log": [
-        "========================================",
-        "TEST has_links (6)",
-        "no hyperlink to browse.html found on home page",
-        "no hyperlink to donate.html found on home page",
-        ""
-      ]
+      "points": 6,
+      "possible": 6
     },
     {
       "test": "browse",
@@ -42,16 +35,16 @@
     },
     {
       "test": "ab_test",
-      "points": 0,
+      "points": 5,
       "possible": 25,
       "log": [
         "========================================",
         "TEST ab_test (25)",
-        "expected exactly one link to donate, but found []",
-        "expected exactly one link to donate, but found []",
-        "expected exactly one link to donate, but found []",
-        "expected exactly one link to donate, but found []",
-        "expected exactly one link to donate, but found []",
+        "did not consistently show same page after first 10 visits",
+        "did not consistently show same page after first 10 visits",
+        "did not consistently show same page after first 10 visits",
+        "did not consistently show same page after first 10 visits",
+        "did not consistently show same page after first 10 visits",
         ""
       ]
     },
@@ -66,7 +59,7 @@
         "response 'thanks, your subscriber number is 3!' did not contain correct 'n' for valid email 'user123@gmail.com'",
         "response 'thanks, your subscriber number is 4!' contained 'thank' for invalid email 'user@gmail@gmail.com'",
         "response 'thanks, your subscriber number is 5!' contained 'thank' for invalid email 'user@hotmail.cooooooooooom'",
-        "found emails {'user@example.com', 'user@hotmail.cooooooooooom', 'user@gmail@gmail.com', 'user123@gmail.com'} in emails.txt, but expected {'user@example.com', 'user123@gmail.com'}",
+        "found emails {'user123@gmail.com', 'user@example.com', 'user@gmail@gmail.com', 'user@hotmail.cooooooooooom'} in emails.txt, but expected {'user123@gmail.com', 'user@example.com'}",
         ""
       ]
     },
@@ -94,6 +87,6 @@
     }
   ],
   "lint": [],
-  "date": "03/25/2025",
-  "latency": 1.1737842559814453
+  "date": "03/28/2025",
+  "latency": 1.251272439956665
 }
