@@ -14,7 +14,7 @@ app = Flask(__name__)
 df = pd.read_csv("main.csv")
 
 #For rate limiting
-last_visit = 0 
+last_visit = {}
 
 #For record visitors
 ip_addrs = []
@@ -26,12 +26,12 @@ best_version = None
 
 @app.route('/')
 def home():
-    global global_counter
+    global global_counter, best_version
     
     with open("index.html",'r') as f:
         html = f.read()
     
-    if global_counter <= 10:
+    if global_counter < 10:
         if global_counter % 2 == 0:
             version = "A"
             html=html.replace("VERSION","A").replace("/donate.html", "/donate.html?from=A").replace("LINK_COLOR",'red')
@@ -40,9 +40,12 @@ def home():
             html=html.replace("VERSION","B").replace("/donate.html", "/donate.html?from=B").replace("LINK_COLOR",'blue')
     
         global_counter += 1
-    
+        
     else:
+        if best_version is None:
+            best_version == "A"
         version = best_version # the best version (with the highest CTR)
+        
         if best_version == "A":
             html = html.replace("VERSION", "A").replace("LINK_COLOR", "blue")
         else:
@@ -51,30 +54,6 @@ def home():
     html = html.replace("/donate.html", f'donate.html?from={version}')        
 
     return html
-
-@app.route('/browse.html')
-def show(): 
-    html_output = df.to_html(index=False)
-    return f"<h1>Browse Data</h1>{html_output}"
-
-@app.route('/browse.json')
-def tojson():
-    global last_visit
-    ip_addr = request.remote_addr
-    ip_addrs.append(ip_addr)
-    print('IP address:',ip_addr)
-    if time.time() - last_visit>60:
-        last_visit = time.time()
-        df_json = df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
-        return jsonify(df_json)  # Return JSON response
-    else:
-        return Response("Please do not access this page so frequently", status=429,headers = {"Retry-After":60,"key":"value"})
-    
-    
-@app.route('/visitors.json')
-#Now add a resource at `http://your-ip:5000/visitors.json` that returns a list of the IP addresses that have visited your `browse.json` resource.
-def visitors():
-    return list(set(ip_addrs))
 
 @app.route('/donate.html')
 def donation(source = ''):
@@ -89,13 +68,40 @@ def donation(source = ''):
     
     print(global_counter)
     
-    if global_counter == 10 and best_version is None:
+    if global_counter >= 10 and best_version is None:
         CTR_A = donation_clicks['A']/10
         CTR_B = donation_clicks['B']/10
                 
-        best_version = "A" if CTR_A > CTR_B else "B"
+        best_version = "A" if CTR_A >= CTR_B else "B"
                 
     return f"<h1>Please fund me!</h1>"
+
+@app.route('/browse.html')
+def show(): 
+    html_output = df.to_html(index=False)
+    return f"<h1>Browse Data</h1>{html_output}"
+
+
+@app.route('/browse.json')
+def tojson():
+    global ip_last_visit
+    ip_addr = request.remote_addr
+    ip_addrs.append(ip_addr)
+    print('IP address:',ip_addr)
+    
+    current_time = time.time()
+    if ip_addr in last_visit and current_time - last_visit[ip_addr] < 60:
+        return Response("Please do not access this page so frequently", status=429,headers = {"Retry-After":60,"key":"value"})
+        
+    last_visit[ip_addr] = current_time
+    df_json = df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
+    return jsonify(df_json)  # Return JSON response
+
+    
+@app.route('/visitors.json')
+#Now add a resource at `http://your-ip:5000/visitors.json` that returns a list of the IP addresses that have visited your `browse.json` resource.
+def visitors():
+    return list(set(ip_addrs))
 
 @app.route('/email', methods=["POST"])
 def email():
