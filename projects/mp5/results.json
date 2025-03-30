@@ -1,5 +1,5 @@
 {
-  "score": 51.0,
+  "score": 74.0,
   "tests": [
     {
       "test": "has_pages",
@@ -18,33 +18,18 @@
     },
     {
       "test": "rate",
-      "points": 0,
-      "possible": 5,
-      "log": [
-        "========================================",
-        "TEST rate (5)",
-        "Traceback (most recent call last):",
-        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 128, in run_all_tests",
-        "    points = t.fn()",
-        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 372, in rate",
-        "    assert status == \"200 OK\"",
-        "AssertionError",
-        "",
-        ""
-      ]
+      "points": 5,
+      "possible": 5
     },
     {
       "test": "ab_test",
-      "points": 5,
+      "points": 23,
       "possible": 25,
       "log": [
         "========================================",
         "TEST ab_test (25)",
-        "did not consistently show same page after first 10 visits",
-        "did not consistently show same page after first 10 visits",
-        "did not consistently show same page after first 10 visits",
-        "did not consistently show same page after first 10 visits",
-        "did not consistently show same page after first 10 visits",
+        "[1]",
+        "did not choose the best version",
         ""
       ]
     },
@@ -59,7 +44,7 @@
         "response 'thanks, your subscriber number is 3!' did not contain correct 'n' for valid email 'user123@gmail.com'",
         "response 'thanks, your subscriber number is 4!' contained 'thank' for invalid email 'user@gmail@gmail.com'",
         "response 'thanks, your subscriber number is 5!' contained 'thank' for invalid email 'user@hotmail.cooooooooooom'",
-        "found emails {'user123@gmail.com', 'user@example.com', 'user@gmail@gmail.com', 'user@hotmail.cooooooooooom'} in emails.txt, but expected {'user123@gmail.com', 'user@example.com'}",
+        "found emails {'user123@gmail.com', 'user@hotmail.cooooooooooom', 'user@example.com', 'user@gmail@gmail.com'} in emails.txt, but expected {'user123@gmail.com', 'user@example.com'}",
         ""
       ]
     },
@@ -78,7 +63,7 @@
         "Traceback (most recent call last):",
         "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 128, in run_all_tests",
         "    points = t.fn()",
-        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 616, in dashboard_examples",
+        "  File \"/home/chenchenmengmeng/labs-and-projects/projects/mp5/tester.py\", line 618, in dashboard_examples",
         "    with open(\"dashboard1.svg\", \"rb\") as f:",
         "FileNotFoundError: [Errno 2] No such file or directory: 'dashboard1.svg'",
         "",
@@ -87,6 +72,6 @@
     }
   ],
   "lint": [],
-  "date": "03/28/2025",
-  "latency": 1.251272439956665
+  "date": "03/30/2025",
+  "latency": 1.3540499210357666
 }
