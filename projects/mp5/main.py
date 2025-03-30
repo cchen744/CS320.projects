@@ -30,6 +30,8 @@ def home():
     
     with open("index.html",'r') as f:
         html = f.read()
+        
+    version = "A"
     
     if global_counter < 10:
         if global_counter % 2 == 0:
@@ -41,7 +43,7 @@ def home():
     
         global_counter += 1
         
-    if best_version is not None:
+    elif best_version is not None:
         version = best_version
         html = html.replace("VERSION", best_version)
         
@@ -49,11 +51,16 @@ def home():
             html = html.replace("LINK_COLOR", "red")
         else:
             html = html.replace("LINK_COLOR", "blue")
+            
+    # else:
+    #     # This handles the case where best_version is still None
+    #     return "<h1>Waiting for A/B test results...</h1>"
     
-    # html = html.replace("/donate.html", f'donate.html?from={version}') 
-    html = html.replace('VERSION', version, 1)  # Replace "VERSION" only once
-    html = html.replace('LINK_COLOR', 'red' if version == 'A' else 'blue', 1)
-    html = re.sub(r'(<a .*?href=")/donate.html', r'\1donate.html?from=' + version, html, count=1)
+    
+    html = html.replace("/donate.html", f'donate.html?from={version}') 
+    # # html = html.replace('VERSION', version, 1)  # Replace "VERSION" only once
+    # # html = html.replace('LINK_COLOR', 'red' if version == 'A' else 'blue', 1)
+    # html = re.sub(r'(<a .*?href=")/donate.html', r'\1donate.html?from=' + version, html)
 
     return html
 

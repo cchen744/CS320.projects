@@ -399,7 +399,6 @@ def ab_test_helper(click_through=[], best=0):
         page = BeautifulSoup(body, "lxml")
         links = page.find_all("a", href=re.compile("donate.html\S*"))
         links = [link["href"] for link in links]
-        
         if len(links) != 1:
             print("expected exactly one link to donate, but found", links)
             return 0
@@ -408,7 +407,7 @@ def ab_test_helper(click_through=[], best=0):
             return 0
 
         html.append(body)
-        
+
         if i in click_through:
             status, headers, body = app_req(links[0])
             if status != "200 OK":
@@ -445,10 +444,9 @@ def ab_test_helper(click_through=[], best=0):
             print("did not consistently show same page after first %d visits" % learn)
             return points
     points += 2
-    
+
     # did they choose the best for phase 2?
     if html[learn] != html[best]:
-        print(click_through) #debugger
         print("did not choose the best version")
     else:
         points += 2
