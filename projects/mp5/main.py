@@ -34,41 +34,42 @@ def home():
     if global_counter < 10:
         if global_counter % 2 == 0:
             version = "A"
-            html=html.replace("VERSION","A").replace("/donate.html", "/donate.html?from=A").replace("LINK_COLOR",'red')
+            html=html.replace("VERSION","A").replace("LINK_COLOR",'red')
         else:
             version = "B"
-            html=html.replace("VERSION","B").replace("/donate.html", "/donate.html?from=B").replace("LINK_COLOR",'blue')
+            html=html.replace("VERSION","B").replace("LINK_COLOR",'blue')
     
         global_counter += 1
         
-    else:
-        if best_version is None:
-            best_version == "A"
-        version = best_version # the best version (with the highest CTR)
+    if best_version is not None:
+        version = best_version
+        html = html.replace("VERSION", best_version)
         
         if best_version == "A":
-            html = html.replace("VERSION", "A").replace("LINK_COLOR", "blue")
+            html = html.replace("LINK_COLOR", "red")
         else:
-            html = html.replace("VERSION", "B").replace("LINK_COLOR", "red")
+            html = html.replace("LINK_COLOR", "blue")
     
-    html = html.replace("/donate.html", f'donate.html?from={version}')        
+    # html = html.replace("/donate.html", f'donate.html?from={version}') 
+    html = html.replace('VERSION', version, 1)  # Replace "VERSION" only once
+    html = html.replace('LINK_COLOR', 'red' if version == 'A' else 'blue', 1)
+    html = re.sub(r'(<a .*?href=")/donate.html', r'\1donate.html?from=' + version, html, count=1)
 
     return html
 
 @app.route('/donate.html')
-def donation(source = ''):
+def donation():
     
     global donation_clicks, global_counter,best_version
-    From = request.args.get("from")
+    source = request.args.get("from","")
     
-    if From=='A':
-        donation_clicks['A']+=1
-    elif From=='B':
-        donation_clicks["B"]+=1
+    if source == 'A':
+        donation_clicks['A'] += 1
+    elif source == 'B':
+        donation_clicks["B"] += 1
     
-    print(global_counter)
     
-    if global_counter >= 10 and best_version is None:
+    if global_counter == 10 and best_version is None:
         CTR_A = donation_clicks['A']/10
         CTR_B = donation_clicks['B']/10
                 
@@ -101,7 +102,7 @@ def tojson():
 @app.route('/visitors.json')
 #Now add a resource at `http://your-ip:5000/visitors.json` that returns a list of the IP addresses that have visited your `browse.json` resource.
 def visitors():
-    return list(set(ip_addrs))
+    return jsonify(list(set(ip_addrs)))
 
 @app.route('/email', methods=["POST"])
 def email():
