@@ -51,7 +51,7 @@ def home():
             html = html.replace("LINK_COLOR", "red")
         else:
             html = html.replace("LINK_COLOR", "blue")
-            
+                        
     # else:
     #     # This handles the case where best_version is still None
     #     return "<h1>Waiting for A/B test results...</h1>"
@@ -76,11 +76,11 @@ def donation():
         donation_clicks["B"] += 1
     
     
-    if global_counter == 10 and best_version is None:
-        CTR_A = donation_clicks['A']/10
-        CTR_B = donation_clicks['B']/10
-                
-        best_version = "A" if CTR_A >= CTR_B else "B"
+    # if global_counter == 10 and best_version is None:
+    CTR_A = donation_clicks['A']
+    CTR_B = donation_clicks['B']
+
+    best_version = "A" if CTR_A > CTR_B else "B"
                 
     return f"<h1>Please fund me!</h1>"
 
@@ -114,37 +114,41 @@ def visitors():
 @app.route('/email', methods=["POST"])
 def email():
     email = str(request.data, "utf-8")
-    if len(re.findall(r"[\w]+@[\w]+\.[A-Za-z]{3}", email)) > 0: # 1
+    if len(re.findall(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{3}$", email)) > 0: # 1
         with open("emails.txt", "a") as f: # open file in append mode
-            f.write(email + '\n') # 2
+            f.write(email + '\n') 
             
         with open("emails.txt", "r") as f:
-            num_subscribed = len(f.readlines())+1 # find the number of subscribers
+            num_subscribed = len(f.readlines()) # find the number of subscribers
             
         return jsonify(f"thanks, your subscriber number is {num_subscribed}!")
     
-    return jsonify( "Warning: Wrong format for email address. Please input email address such as:'abc@xyz.opq'") # 3
+    return jsonify( "Warning: Wrong format for email address. Please input email address such as:'abc@xyz.opq'") 
 
 @app.route("/dashboard1.svg")
-def plot(bins=5):    
+def plot_dashboard1():
+    return generate_plot(bins=5, filename="dashboard1.svg")
+
+@app.route("/dashboard1-query.svg")
+def plot_dashboard1_query():
+    return generate_plot(bins=10, filename="dashboard1-query.svg")
+
+def generate_plot(bins, filename):
     fig, ax = plt.subplots(figsize=(6, 4))
-    df['Value'].plot.hist(ax=ax, bins=bins,color = "lavender",edgecolor = "white")
-    
+    df['Value'].plot.hist(ax=ax, bins=bins, color="lavender", edgecolor="white")
+
     ax.set_ylabel("Corn Yield per Acre")
     ax.set_title("Histogram of Corn Yield per Acre")
     plt.tight_layout()
-    
-    # save to local
-    bins = request.args.get("bins")
-    
-    f = io.BytesIO() 
+
+    f = io.BytesIO()
     fig.savefig(f, format="svg")
     plt.close()
-    
-    filename = f"dashboard1_{bins}.svg"
+
+    # Save file locally
     with open(filename, "wb") as file:
         file.write(f.getvalue())
-    
+
     return Response(f.getvalue(), headers={"Content-type": "image/svg+xml"})
 
 @app.route("/dashboard2.svg")
