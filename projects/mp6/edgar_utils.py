@@ -34,3 +34,26 @@ def lookup_region(ip):
     # Cache and return
     region_cache[ip] = region
     return region
+
+class Filing:
+    def __init__(self, html):
+        self.dates = re.findall(r'[1-2]\d{3}-\d{2}-\d{2}', html)
+        self.sic = re.findall(r"SIC=(\d+)",html)
+        self.addresses = []
+        self.find_address(html)
+                
+    def state(self):
+        states = []
+        for address in self.addresses:
+            states.extend(re.findall(r'[A-Z]{2} \d{5}',address))
+        return states
+    
+    def find_address(self,html):
+        for addr_html in re.findall(r'<div class="mailer">([\s\S]+?)</div>', html):
+            lines = []
+            for line in re.findall(r'<span class="mailerAddress">([\s\S]+?)</span>', addr_html):
+                lines.append(line.strip())
+            self.addresses.append(("\n".join(lines)))
+                
+    
+   
