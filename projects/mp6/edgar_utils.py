@@ -54,14 +54,6 @@ class Filing:
                 return(current_state)
         return None
     
-    # def state(self):
-    #     states = []
-    #     for address in self.addresses:
-    #         current_states = re.findall(r'\W([A-Z]{2})\s*\d{5}', address)
-    #         if current_states:
-    #             states.extend(current_states)
-    #     return states if states else None
-    
     def find_sic(self,html):
         match = re.search(r"SIC=(\d{4})", html)
         self.sic = int(match.group(1)) if match else None
