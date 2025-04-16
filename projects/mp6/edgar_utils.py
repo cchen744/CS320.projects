@@ -37,23 +37,35 @@ def lookup_region(ip):
 
 class Filing:
     def __init__(self, html):
-        self.dates = re.findall(r'[1-2]\d{3}-\d{2}-\d{2}', html)
-        self.sic = re.findall(r"SIC=(\d+)",html)
+        # self.dates = re.findall(r'([1-2]\d{3}-\d{2})-(0[1-9]|[12][0-9]|3[01])', html)
+        self.dates = re.findall(r'(?:19|20)\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])',html)
+        self.sic = 0
+        self.find_sic(html)
         self.addresses = []
         self.find_address(html)
                 
     def state(self):
-        states = []
+        # states = []
         for address in self.addresses:
-            states.extend(re.findall(r'[A-Z]{2} \d{5}',address))
-        return states
+            current_state = (re.findall(r'\W([A-Z]{2})\s*\d{5}',address))
+            if current_state !=[] and len(current_state)==1:
+                return(''.join(current_state))
+            elif current_state != []:
+                return(current_state)
+        return None
+    
+    def find_sic(self,html):
+        match = re.search(r"SIC=(\d{4})", html)
+        self.sic = int(match.group(1)) if match else None
+    
     
     def find_address(self,html):
         for addr_html in re.findall(r'<div class="mailer">([\s\S]+?)</div>', html):
             lines = []
             for line in re.findall(r'<span class="mailerAddress">([\s\S]+?)</span>', addr_html):
                 lines.append(line.strip())
-            self.addresses.append(("\n".join(lines)))
+            if ("\n".join(lines)) != '':
+                self.addresses.append(("\n".join(lines)))
                 
     
    
