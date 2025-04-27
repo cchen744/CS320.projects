@@ -27,11 +27,15 @@ class UserPredictor():
         train_y: DataFrame with target values (e.g., whether the user is interested).
         """
         # Merge datasets on 'user_id' to create a single training dataset
-        train_data = (train_users.merge(train_logs, how='inner', on='user_id'))
-        train_data = train_data.merge(train_y, how='inner', on='user_id')
+        # A dataset with nrow = 30,000 is expected
+        # So we need to summarize train_logs when merge it with the other two
+        # First try aggregating log-in seconds, group by user_id
+        train_data = (train_users.merge(train_y, how='inner', on='user_id'))
+        aggregated_train_logs = train_logs[['user_id','seconds']].groupby('user_id').sum()
+        train_data = train_data.merge(aggregated_train_logs, how='inner', on='user_id')
         
         # Assuming 'past_purchase_amt' is a feature (this might be changed later).
-        X = train_data[['past_purchase_amt']]  
+        X = train_data[['past_purchase_amt','seconds']]  
         # Assuming 'y' is the target column
         y = train_data['y'] 
         
@@ -49,10 +53,12 @@ class UserPredictor():
         Returns: Predicted labels for the test dataset.
         """
         # Merge test data
-        test_data = test_users.merge(test_logs, how='inner', on='user_id')
+        aggregated_test_logs = test_logs[['user_id','seconds']].groupby('user_id').sum()
+        test_data = test_users.merge(aggregated_test_logs, how='inner', on='user_id')
+        print(test_data.head())
     
         # Define features for prediction
-        X_test = test_data[['past_purchase_amt']]  # Assuming same feature 'past_purchase_amt'
+        X_test = test_data[['past_purchase_amt','seconds']]  # Assuming same feature 'past_purchase_amt'
         
         # Make predictions
         predictions = self.pipeline.predict(X_test)
