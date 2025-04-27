@@ -7,13 +7,27 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.pipeline import Pipeline
 # from sklearn.preprocessing import PolynomialFeatures
-# from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
 # Load datasets
 
 # Write my classifier as a class called UserPredictor.
 class UserPredictor():
     def __init__(self):
+#         self.num_features = ['past_purchase_amt', 'seconds']
+#         self.cat_features = ['badge']
+        
+        
+#         # I want to include `badge` in the predictors
+#         # so we need some preprocessing to trandfer this categorical data into numerical data
+#         # Define the preprocessors
+        
+#         self.preprocessor = ColumnTransformer([
+#             # ('num', StandardScaler(), self.num_features),
+#             ('cat', OneHotEncoder(handle_unknown='ignore'), self.cat_features)
+#         ])
+        
         self.pipeline = Pipeline([('lgm', LogisticRegression())])
         
 
@@ -39,7 +53,7 @@ class UserPredictor():
         train_data = train_data.fillna(aggregated_train_logs['seconds'].median())
         
         # Assuming 'past_purchase_amt' is a feature (this might be changed later).
-        X = train_data[['past_purchase_amt','seconds']]  
+        X = train_data[['past_purchase_amt','age','seconds']]  
         # Assuming 'y' is the target column
         y = train_data['y'] 
         
@@ -65,7 +79,7 @@ class UserPredictor():
         test_data = test_data.fillna(aggregated_test_logs['seconds'].median())
         
         # Define features for prediction
-        X_test = test_data[['past_purchase_amt','seconds']]  # Assuming same feature 'past_purchase_amt'
+        X_test = test_data[['past_purchase_amt','age','seconds']]  # Assuming same feature 'past_purchase_amt'
         
         # Make predictions
         predictions = self.pipeline.predict(X_test)
