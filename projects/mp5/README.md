@@ -354,7 +354,7 @@ Add the following `<head>` code to your `index.html`, before the `<body>` code:
       }
     </script>
   </head>
-```
+``` 
 
 Then, in the main body of the HTML, add this code for the button somewhere:
 

@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+      function subscribe() {
+        var email = prompt("What is your email?", "????");
+
+        $.post({
+          type: "POST",
+          url: "email",
+          data: email,
+          contentType: "application/text; charset=utf-8",
+          dataType: "json"
+        }).done(function(data) {
+          alert(data);
+        }).fail(function(data) {
+          alert("POST failed");
+        });
+      }
+    </script>
+  </head>
+    
+  <body>
+    <h1>Welcome to Version VERSION !</h1>
+    <a href="/browse.html">See the data here</a>
+    <a href="/browse.json"><br>Access the data here</a>
+    <p>Enjoy the data!</p>
+      
+    <!-- The donation link will be dynamically updated -->
+    <a href="/donate.html" style="color: LINK_COLOR;">Donate Now</a>
+    <br> <!-- new line -->
+    <br> 
+    <button onclick="subscribe()">Subscribe</button>
+    <br>
+    <img src="dashboard1.svg"><br><br>
+    <img src="dashboard1-query.svg"><br><br>
+    <img src="dashboard2.svg"><br><br>
+  </body>
+</html>
