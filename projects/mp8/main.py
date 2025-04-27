@@ -32,7 +32,11 @@ class UserPredictor():
         # First try aggregating log-in seconds, group by user_id
         train_data = (train_users.merge(train_y, how='inner', on='user_id'))
         aggregated_train_logs = train_logs[['user_id','seconds']].groupby('user_id').sum()
-        train_data = train_data.merge(aggregated_train_logs, how='inner', on='user_id')
+        train_data = train_data.merge(aggregated_train_logs, how='outer', on='user_id')
+        
+        # Since there are some user_is missing in the train_logs dataset
+        # I will try filling the NaN of `seconds` in aggregated_train_logs with median's seconds
+        train_data = train_data.fillna(aggregated_train_logs['seconds'].median())
         
         # Assuming 'past_purchase_amt' is a feature (this might be changed later).
         X = train_data[['past_purchase_amt','seconds']]  
@@ -41,7 +45,7 @@ class UserPredictor():
         
         # Fit the model
         self.pipeline.fit(X, y)
-    
+        return train_data.shape
     
     def predict(self,test_users,test_logs):
         """
@@ -54,9 +58,12 @@ class UserPredictor():
         """
         # Merge test data
         aggregated_test_logs = test_logs[['user_id','seconds']].groupby('user_id').sum()
-        test_data = test_users.merge(aggregated_test_logs, how='inner', on='user_id')
-        print(test_data.head())
-    
+        test_data = test_users.merge(aggregated_test_logs, how='outer', on='user_id')
+        
+        # Since there are some user_is missing in the train_logs dataset
+        # I will try filling the NaN of `seconds` in aggregated_train_logs with median's seconds
+        test_data = test_data.fillna(aggregated_test_logs['seconds'].median())
+        
         # Define features for prediction
         X_test = test_data[['past_purchase_amt','seconds']]  # Assuming same feature 'past_purchase_amt'
         
