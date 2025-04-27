@@ -1,5 +1,8 @@
 from collections import deque
 import pandas as pd
+import time
+import requests
+
 
 class GraphSearcher:
     def __init__(self):
@@ -41,6 +44,7 @@ class GraphSearcher:
     
     def bfs_visit(self,node):
         to_visit = deque([node])
+        self.visited.add(node)
         
         while len(to_visit) > 0:
             curr_node = to_visit.popleft()   # Fast O(1) operation
@@ -76,8 +80,8 @@ class FileSearcher(GraphSearcher):
             lines=file.readlines()
         self.order.append(lines[0].strip()) # Record the node value in self.order
         children = [] # a list of children
-        for line in lines[1:-1]:
-            children.append(line.strip())
+        for line in lines[1:]:
+            children.extend(line.strip().split(','))
         return children
     
     def concat_order(self):
@@ -87,6 +91,7 @@ class FileSearcher(GraphSearcher):
 class WebSearcher(GraphSearcher):
     def __init__(self,some_driver):
         super().__init__() # call constructor method of parent class
+
         self.driver = some_driver
         self.DataFrames = pd.DataFrame() # set up an empty dataframe to store all table in all webs
         
@@ -125,3 +130,27 @@ class WebSearcher(GraphSearcher):
         return pd.concat(tables, ignore_index=True)
     
 def reveal_secrets(driver, url, travellog):
+    # Generate a password from the "clue" column of the `travellog` DataFrame.  For example, if `travellog` is the big DataFrame built **after doing BFS** (as shown earlier), the password will start with "171358..."
+    password = ''.join(str(x) for x in list(travellog['clue']))
+    # driver = webdriver.Chrome(options=options)
+    driver.get(url)
+    text = driver.find_element("id", "password-textbox")
+    text.send_keys(password) # send the password
+                       
+    button1 = driver.find_element("id","submit-button")
+    button1.click() #click the button
+    time.sleep(3) # Wait until the page is loaded (perhaps with `time.sleep`)
+    
+    button2 = driver.find_element('id','location-button')
+    button2.click()
+    time.sleep(3) # Click the "View Location" button and wait until the result finishes loading
+    
+    # Save the image that appears to a file named 'Current_Location.jpg' (use the `requests` module to do the download, once you get the URL from selenium)
+    img_url=driver.find_element('id','image').get_attribute('src')
+    response = requests.get(img_url)
+    with open('Current_Location.jpg', 'wb') as file:
+        file.write(response.content) 
+    
+    # Return the current location that appears on the page (should be "CAMP RANDALL STADIUM")
+    current_location = driver.find_element('id','location').text 
+    return current_location
