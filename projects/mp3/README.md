@@ -139,7 +139,12 @@ The `__init__` of your `Bank` class should check that the given name appears in 
 
 ### wi.zip
 
-The `__init__` should also iterate over the loan data from the CSV inside of `wi.zip` and either skip the loan data if the `lei` doesn't match that of the `Bank` object, or create a `Loan` object from the loan data if the `lei` does match and append it to a list that is stored as an attribute in the `Bank` object called `loan_list`. For example, someone should be able to call `lcu.loan_list` to get a list of all of the `Loan` objects that have the same `lei` as the `Bank` object we created above.
+The `__init__` should also iterate over the loan data from the CSV inside of `wi.zip` and 
+either skip the loan data if the `lei` doesn't match that of the `Bank` object, 
+or create a `Loan` object from the loan data if the `lei` does match 
+and append it to a list that is stored as an attribute in the `Bank` object called `loan_list`. 
+
+For example, someone should be able to call `lcu.loan_list` to get a list of all of the `Loan` objects that have the same `lei` as the `Bank` object we created above.
 
 You already learned how to read text from a zip file in lab using `TextIOWrapper` and the `zipfile` module. Read the documentation and example for how to read CSV files with `DictReader` here: https://docs.python.org/3/library/csv.html#csv.DictReader.  You can combine this with what you learned about zipfiles.  When you create a `DictReader`, just pass in a `TextIOWrapper` object instead of a regular file object.
 
