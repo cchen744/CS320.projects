@@ -2,7 +2,7 @@
 
 This repository contains all the projects completed for **CS320: Data Programming II**. These projects showcase practical applications of data science techniques, including web development, web scraping, machine learning, and data visualization.
 
-Among the eight machine projects, the following four are especially noteworthy:
+Among the eight machine projects, the following five are especially noteworthy:
 
 ---
 
