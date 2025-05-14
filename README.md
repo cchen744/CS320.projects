@@ -10,7 +10,7 @@ Among the eight machine projects, the following four are especially noteworthy:
 
 This project combines graph search algorithms (BFS and DFS) with web scraping using the `selenium` module. We scraped structured data from a model website and conducted core data analysis.
 
-**Main file:** [`scrape.py`](./MP4/scrape.py)
+**Main file:** [`scrape.py`](./projects/mp4/scrape.py)
 
 ---
 
@@ -18,7 +18,7 @@ This project combines graph search algorithms (BFS and DFS) with web scraping us
 
 We built an interactive website using `Flask` and implemented A/B testing to compare different design versions. The site visualizes data and evaluates which version performs best.
 
-**Main file:** [`main.py`](./MP5/main.py)
+**Main file:** [`main.py`](./projects/mp5/main.py)
 
 ---
 
@@ -26,7 +26,7 @@ We built an interactive website using `Flask` and implemented A/B testing to com
 
 This project focuses on analyzing Wisconsin Census data using geospatial and machine learning tools. We used `geopandas` for geographical plotting and applied regression models to evaluate performance.
 
-**Main file:** [`mp7.ipynb`](./MP7/mp7.ipynb)
+**Main file:** [`mp7.ipynb`](./projects/mp7/mp7.ipynb)
 
 ---
 
@@ -34,7 +34,7 @@ This project focuses on analyzing Wisconsin Census data using geospatial and mac
 
 A comprehensive machine learning project utilizing `scikit-learn`. This project demonstrates how to build a predictive model using `Pipeline` and `LinearRegression`.
 
-**Main file:** [`main.py`](./MP8/main.py)
+**Main file:** [`main.py`](./projects/mp8/main.py)
 
 ---
 
